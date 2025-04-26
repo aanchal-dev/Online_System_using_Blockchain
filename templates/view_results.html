@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fefefe;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #080808;
+            padding: 10px;
+            text-align: right;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            margin-top: 80px;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            width: 80%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a>
+        <a href="{{ url_for('add_party') }}">Add Parties</a>
+        <a href="{{ url_for('vote_results') }}">View Vote Results</a>
+        <a href="{{ url_for('blockchain_hash_values') }}">Blockchain Hash Values</a>
+        <a href="{{ url_for('logout') }}" style="color: rgb(243, 240, 240);">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h2>Voting Results</h2>
+        <div class="chart-container">
+            <canvas id="resultsChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('resultsChart').getContext('2d');
+const resultsChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{ labels | safe }},  // Party names
+        datasets: [{
+            label: 'Number of Votes',
+            data: {{ data | safe }},  // Vote counts
+            backgroundColor: '#2c3e50'
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        }
+    }
+});
+    </script>
+</body>
+</html>

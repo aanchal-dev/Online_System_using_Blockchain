@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain Hash Values</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #111112;
+            padding: 10px;
+            text-align: right;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            margin-top: 100px;
+            padding: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .hash-list {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .hash-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .hash-item p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+        .hash-item p strong {
+            color: #333;
+        }
+        .hash-item:nth-child(odd) {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a>
+        <a href="{{ url_for('add_party') }}">Add Parties</a>
+        <a href="{{ url_for('vote_results') }}">View Vote Results</a>
+        <a href="{{ url_for('blockchain_hash_values') }}">Blockchain Hash Values</a>
+        <a href="{{ url_for('logout') }}" style="color: rgb(249, 248, 248);">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h1>Blockchain Hash Values</h1>
+        <div class="hash-list">
+            <!-- blockchain_hash_values.html -->
+{% for block in blockchain.chain %}
+<div>
+  <h3>Block {{ block.index }}</h3>
+  <p><strong>Previous Hash:</strong> {{ block.previous_hash }}</p>
+  <p><strong>Current Hash:</strong> {{ block.hash }}</p>
+  <p><strong>Transactions:</strong></p>
+  <ul>
+    {% for tx in block.transactions %}
+      <li>Voter: {{ tx.voter }} - Party: {{ tx.party }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}
+
+        </div>
+    </div>
+</body>
+</html>
