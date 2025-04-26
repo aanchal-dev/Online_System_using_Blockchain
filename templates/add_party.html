@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Party</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #111212;
+            padding: 10px;
+            text-align: right;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            margin-top: 100px;
+            padding: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a>
+        <a href="{{ url_for('add_party') }}">Add Parties</a>
+        <a href="{{ url_for('vote_results') }}">View Vote Results</a>
+        <a href="{{ url_for('blockchain_hash_values') }}">Blockchain Hash Values</a>
+        <a href="{{ url_for('logout') }}" style="color: rgb(234, 228, 228);">Logout</a>
+    </nav>
+
+    <div class="container">
+        <h1>Add Party</h1>
+        <form method="POST">
+            <input type="text" name="party_name" placeholder="Party Name" required>
+            <input type="text" name="candidate_name" placeholder="Candidate Name" required>
+            <button type="submit">Add Party</button>
+        </form>
+    </div>
+</body>
+</html>
